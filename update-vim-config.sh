@@ -36,22 +36,28 @@ case "$1" in
 
 -u)
     mkdir "tmp$$"
-    if [ -f ".vimrc" ]; then
-        cp .vimrc "tmp$$"
-    fi
-    if [ -f ".gvimrc" ]; then
-        cp .vimrc "tmp$$"
-    fi
-    if [ -d ".vim" ]; then
-        cp -R .vim "tmp$$"
-    fi
+
+    git clone "$configRepository" "tmp$$"
 
     cd "tmp$$"
-    git init
-    git add .
+    git rm -r .
+    if [ -f "../.vimrc" ]; then
+        echo "vimrc"
+        cp ~/.vimrc .
+        git add .vimrc
+    fi
+    if [ -f "../.gvimrc" ]; then
+        echo "gvimrc"
+        cp ~/.gvimrc .
+        git add .gvimrc
+    fi
+    if [ -d "../.vim" ]; then
+        echo "vim"
+        cp -R ~/.vim .
+        git add .vim
+    fi
     git commit -m "$(date '+%d.%m.%Y %T')"
-    git remote add origin "$configRepository"
-    git push --force origin master
+    git push
     cd ..
 
     rm -Rf "tmp$$"
