@@ -37,9 +37,8 @@ case "$1" in
 -u)
     mkdir "tmp$$"
 
-    git clone "$configRepository" "tmp$$"
-
     cd "tmp$$"
+    git clone "$configRepository" .
     git rm -r .
     if [ -f "../.vimrc" ]; then
         cp ~/.vimrc .
