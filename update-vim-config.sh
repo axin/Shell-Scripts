@@ -42,17 +42,14 @@ case "$1" in
     cd "tmp$$"
     git rm -r .
     if [ -f "../.vimrc" ]; then
-        echo "vimrc"
         cp ~/.vimrc .
         git add .vimrc
     fi
     if [ -f "../.gvimrc" ]; then
-        echo "gvimrc"
         cp ~/.gvimrc .
         git add .gvimrc
     fi
     if [ -d "../.vim" ]; then
-        echo "vim"
         cp -R ~/.vim .
         git add .vim
     fi
